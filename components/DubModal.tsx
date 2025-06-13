@@ -32,6 +32,7 @@ export const DubModal = ({
   const [sourceLanguage, setSourceLanguage] = useState("");
   const [targetLanguage, setTargetLanguage] = useState("");
   const [numSpeakers, setNumSpeakers] = useState("");
+  const [uploadedFile, setUploadedFile] = useState(null)
   const [voiceCloning, setVoiceCloning] = useState(false);
   const [source, setSource] = useState("upload");
   const { addProject } = useDubStore();
@@ -44,6 +45,7 @@ export const DubModal = ({
       sourceLanguage: sourceLanguage,
       targetLanguage: targetLanguage,
       status: "processing" as const,
+      uploadedFile: uploadedFile,
     };
     addProject(newProject);
     onClose();
@@ -205,7 +207,7 @@ export const DubModal = ({
             <Checkbox
               id="voice-cloning"
               checked={voiceCloning}
-              onCheckedChange={setVoiceCloning}
+              onCheckedChange={(checked) => setVoiceCloning(checked === true)}
             />
             <label
               htmlFor="voice-cloning"

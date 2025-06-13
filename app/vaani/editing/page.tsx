@@ -16,6 +16,7 @@ import { ShineBorder } from "@/components/magicui/shine-border";
 import { RainbowButton } from "@/components/magicui/rainbow-button";
 import ExportModal from "@/components/ExportModal";
 import confetti from "canvas-confetti";
+import WaveSurfer from "wavesurfer.js";
 
 const WaveSurferPlayer = dynamic(() => import("@wavesurfer/react"), {
   ssr: false,
@@ -101,8 +102,8 @@ export default function Page() {
   const [exportModalOpen, setExportModalOpen] = useState(false);
 
   const videoNode = useRef<HTMLVideoElement>(null);
-  const player = useRef<VideoFrame | null>(null);
-  const wavesurferRef = useRef<number>(null);
+  const player = useRef<unknown>(null);
+  const wavesurferRef = useRef<WaveSurfer | null>(null);
   const rafIdRef = useRef<number>(null);
   const [isClient, setIsClient] = useState(false);
   const [timelineEl, setTimelineEl] = useState<HTMLElement | null>(null);
@@ -115,7 +116,6 @@ export default function Page() {
             height: 30,
             waveColor: "#ccc",
             progressColor: "#999",
-            
           }),
           RegionsPlugin.create(),
         ]
@@ -158,7 +158,7 @@ export default function Page() {
   useEffect(() => {
     setIsClient(true);
     if (typeof document !== "undefined") {
-      const el = document.querySelector(".wave-timeline");
+      const el = document.querySelector(".wave-timeline") as HTMLElement;
       if (el) setTimelineEl(el);
     }
   }, []);
@@ -166,7 +166,7 @@ export default function Page() {
   // Animation loop to update currentTime
   const startSyncLoop = () => {
     const update = () => {
-      const time = player.current?.currentTime() || 0;
+      const time = (player.current as any)?.currentTime() || 0;
       setCurrentTime(time);
       rafIdRef.current = requestAnimationFrame(update);
     };
@@ -288,7 +288,9 @@ export default function Page() {
             waveColor="#ddd"
             progressColor="#444"
             url={videoUrl}
-            ref={wavesurferRef}
+            onReady={(ws) => {
+              wavesurferRef.current = ws;
+            }}
             plugins={plugins}
           />
         </div>
