@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDropzone } from "react-dropzone";
-import { Label } from "@radix-ui/react-label";
+
 const Upload = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"

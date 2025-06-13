@@ -15,11 +15,7 @@ import {
   FacebookShareButton,
   TwitterShareButton,
   WhatsappShareButton,
-  FacebookIcon,
-  TwitterIcon,
-  WhatsappIcon,
-  YoutubeIcon,
-  InstapaperIcon,
+
 } from "react-share";
 import { RiTwitterXFill } from "react-icons/ri";
 import { FaFacebookF } from "react-icons/fa";

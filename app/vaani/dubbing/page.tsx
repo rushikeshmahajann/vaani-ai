@@ -1,8 +1,7 @@
 "use client";
-import React, { use, useEffect, useState } from "react";
+import React, { useState } from "react";
 import { WobbleCard } from "@/components/ui/wobble-card";
 import Image from "next/image";
-import { MdArrowOutward } from "react-icons/md";
 import { Button } from "@/components/ui/button";
 import Language from "@/icons/Language";
 import Plus from "@/icons/Plus";
@@ -13,7 +12,7 @@ import { useGSAP } from "@gsap/react";
 import { useDubStore } from "@/store/dubStore";
 import ProjectCard from "@/components/ProjectCard";
 
-const page = () => {
+const Page = () => {
   const [isTutorialOpen, setIsTutorialOpen] = useState(true);
   const [isDubModalOpen, setIsDubModalOpen] = useState(false);
   const { projects} = useDubStore();
@@ -255,4 +254,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

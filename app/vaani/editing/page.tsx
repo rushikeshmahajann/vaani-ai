@@ -14,14 +14,17 @@ import Scissors from "@/icons/Scissors";
 import { Button } from "@/components/ui/button";
 import { ShineBorder } from "@/components/magicui/shine-border";
 import { RainbowButton } from "@/components/magicui/rainbow-button";
-import Link from "next/link";
 import ExportModal from "@/components/ExportModal";
 import confetti from "canvas-confetti";
 
 const WaveSurferPlayer = dynamic(() => import("@wavesurfer/react"), {
   ssr: false,
 });
-
+interface Subtitle {
+  start: number;
+  end: number;
+  text: string;
+}
 const dummySubtitles = [
   { start: 0, end: 2, text: "Hanuman ji is linked to physical powers?" },
   {
@@ -92,25 +95,17 @@ const dummySubtitles = [
   },
 ];
 
-export default function SubtitleEditorPage() {
-  const [subtitles, setSubtitles] = useState(dummySubtitles);
+export default function Page() {
+  const [subtitles, setSubtitles] = useState<Subtitle[]>(dummySubtitles);
   const [currentTime, setCurrentTime] = useState(0);
   const [exportModalOpen, setExportModalOpen] = useState(false);
 
   const videoNode = useRef<HTMLVideoElement>(null);
-  const player = useRef<videojs.Player | null>(null);
-  const wavesurferRef = useRef<any>(null);
-  const rafIdRef = useRef<number>();
+  const player = useRef<VideoFrame | null>(null);
+  const wavesurferRef = useRef<number>(null);
+  const rafIdRef = useRef<number>(null);
   const [isClient, setIsClient] = useState(false);
   const [timelineEl, setTimelineEl] = useState<HTMLElement | null>(null);
-
-  useEffect(() => {
-    setIsClient(true);
-    if (typeof document !== "undefined") {
-      const el = document.querySelector(".wave-timeline");
-      if (el) setTimelineEl(el);
-    }
-  }, []);
 
   const plugins =
     isClient && timelineEl
@@ -120,7 +115,7 @@ export default function SubtitleEditorPage() {
             height: 30,
             waveColor: "#ccc",
             progressColor: "#999",
-            showOverview: true,
+            
           }),
           RegionsPlugin.create(),
         ]
@@ -231,7 +226,7 @@ export default function SubtitleEditorPage() {
         <RainbowButton
           onClick={() => {
             setExportModalOpen(true);
-            setTimeout(()=>handleClick(),1000)
+            setTimeout(() => handleClick(), 1000);
           }}
           variant={"outline"}
         >
