@@ -3,6 +3,8 @@
 This is a **frontend-focused technical assignment** built for **Sarvam AI**.  
 It demonstrates a browser-based AI dubbing platform (like Eleven Labs) with real-time subtitle editing and audio waveform visualization.
 
+Use demovideo.mp4 in root directory for demonstration purposes.
+
 ---
 
 ## 🧠 Features
